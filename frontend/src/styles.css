@@ -17,3 +17,16 @@ button { background: var(--accent); border:0; padding:0.4rem 0.85rem; border-rad
 .hero-num { font-size:2.2rem; font-weight:700; color: var(--accent); }
 .muted { color: var(--muted); }
 input, select { background:#0a1528; border:1px solid var(--muted); color:var(--text); padding:0.35rem; border-radius:4px; }
+button.ghost { background:transparent; border:1px solid var(--accent); color:var(--accent); margin-left:0.4rem; }
+button:disabled { opacity:0.5; cursor:not-allowed; }
+.error { color:#ff8a8a; }
+.form-row { display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap; }
+.num { width:7rem; }
+.badge-on { color:#7fe3a0; border:1px solid #2a9d8f; border-radius:10px; padding:0.1rem 0.5rem; }
+.badge-off { color:var(--muted); border:1px solid var(--muted); border-radius:10px; padding:0.1rem 0.5rem; }
+.path-row { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; margin:0.75rem 0; }
+.station-chip { background:#0a1528; border:1px solid var(--accent); border-radius:8px; padding:0.3rem 0.6rem; display:inline-flex; flex-direction:column; align-items:center; }
+.station-chip small { color:var(--muted); }
+.edge-tag { color:var(--muted); }
+.edge-tag.hot { color:#ffb020; font-weight:700; }
+h2 { font-size:1.05rem; margin:0.75rem 0 0.25rem; }

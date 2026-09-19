@@ -1,5 +1,6 @@
 from app.db import connect
 from app.engines.route_quote import quote_route
+from app.modules.transfer_penalty import repository as transfer_repo
 from app.repositories import edges as edges_repo
 from app.repositories import fare_rules as rules_repo
 from app.repositories import runs as runs_repo
@@ -27,7 +28,7 @@ class MetroService:
         return stations_repo.get_by_code(self._conn, code)
 
     def edges(self):
-        return [{"a": a, "b": b} for a, b in edges_repo.list_pairs(self._conn)]
+        return [{"a": a, "b": b, "line": line} for a, b, line in edges_repo.list_with_lines(self._conn)]
 
     def fare_rules(self):
         return rules_repo.list_ordered(self._conn)
@@ -36,9 +37,10 @@ class MetroService:
         return settings_repo.get_map(self._conn)
 
     def quote(self, start: str, end: str, persist: bool):
-        edges = edges_repo.list_pairs(self._conn)
+        edges = edges_repo.list_with_lines(self._conn)
         rules = rules_repo.as_calc_rules(self._conn)
-        result = quote_route(edges, start, end, rules)
+        transfer_rules = transfer_repo.active_rule_map(self._conn)
+        result = quote_route(edges, start, end, rules, transfer_rules)
         run_id = None
         if persist and result.get("reachable"):
             run_id = runs_repo.insert(self._conn, "quote", {"start": start, "end": end}, result)

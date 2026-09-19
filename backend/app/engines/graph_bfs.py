@@ -1,25 +1,36 @@
 from collections import defaultdict, deque
 
 
-def shortest_hops(edges: list[tuple[str, str]], start: str, end: str) -> int | None:
-    """Undirected graph BFS hop count; None if unreachable."""
+def shortest_path(edges: list[tuple[str, str]], start: str, end: str) -> list[str] | None:
+    """Undirected BFS shortest path as a station sequence; None if unreachable."""
     if start == end:
-        return 0
+        return [start]
     g: dict[str, set[str]] = defaultdict(set)
     for a, b in edges:
         g[a].add(b)
         g[b].add(a)
     if start not in g or end not in g:
         return None
-    q = deque([(start, 0)])
-    seen = {start}
+    parent: dict[str, str | None] = {start: None}
+    q = deque([start])
     while q:
-        cur, d = q.popleft()
-        for nxt in g[cur]:
-            if nxt in seen:
+        cur = q.popleft()
+        for nxt in sorted(g[cur]):
+            if nxt in parent:
                 continue
+            parent[nxt] = cur
             if nxt == end:
-                return d + 1
-            seen.add(nxt)
-            q.append((nxt, d + 1))
+                path = [end]
+                p = cur
+                while p is not None:
+                    path.append(p)
+                    p = parent[p]
+                return path[::-1]
+            q.append(nxt)
     return None
+
+
+def shortest_hops(edges: list[tuple[str, str]], start: str, end: str) -> int | None:
+    """Undirected graph BFS hop count; None if unreachable."""
+    path = shortest_path(edges, start, end)
+    return None if path is None else len(path) - 1
