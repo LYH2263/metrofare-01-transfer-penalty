@@ -17,3 +17,9 @@ button { background: var(--accent); border:0; padding:0.4rem 0.85rem; border-rad
 .hero-num { font-size:2.2rem; font-weight:700; color: var(--accent); }
 .muted { color: var(--muted); }
 input, select { background:#0a1528; border:1px solid var(--muted); color:var(--text); padding:0.35rem; border-radius:4px; }
+button.ghost { background:transparent; border:1px solid var(--muted); color:var(--text); margin-left:0.4rem; }
+.error { color:#ff8a7a; }
+.path-line { display:flex; flex-wrap:wrap; align-items:center; gap:0.3rem; }
+.station-chip { background:#0a1528; border:1px solid var(--accent); border-radius:6px; padding:0.15rem 0.5rem; }
+.edge-line { color:var(--muted); font-size:0.85rem; }
+.transfer-chip { background:#0a1528; border:1px solid var(--line-a); border-radius:6px; padding:0.15rem 0.5rem; margin-right:0.4rem; }
